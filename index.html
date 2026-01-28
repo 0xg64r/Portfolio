@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0xg64r Portfolio</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/ocr-a-std" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+
+  :root {
+    --fg: #00ff88;
+    --accent: #00ffaa;
+  }
+
+  body {
+    background-color: #0d0d0d;
+    color: var(--fg);
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 0.05em;
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  #terminal {
+    padding: 20px;
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+
+  .prompt {
+    color: var(--accent);
+  }
+
+  input {
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-family: inherit;
+    font-size: 16px;
+    width: 80%;
+    outline: none;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: var(--fg);
+    color: #000;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .banner {
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+
+  .banner-ascii {
+    white-space: pre;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  .banner-ocr {
+    display: none;
+    font-family: 'OCR A Std', monospace;
+    font-size: 1.5em;
+    letter-spacing: 0.05em;
+    line-height: 1.3em;
+    white-space: normal;
+  }
+
+  .banner-ocr code {
+    font-size: 0.9em;
+  }
+
+  @media (max-width: 700px) {
+  body {
+    font-size: 0.9em;
+  }
+
+  #terminal {
+    padding: 14px;
+  }
+
+  .banner-ocr {
+    font-size: 1.4em;
+    text-align: left;
+  }
+
+  .typed-line {
+    line-height: 1.5em;
+  }
+}
+
+    input {
+      font-size: 0.9em;
+    }
+
+    .banner-ocr {
+      font-size: 1.6em;
+      margin-bottom: 0.5em;
+    }
+
+    .banner-ocr code {
+      font-size: 0.9em;
+    }
+  }
+
+  .typed-line {
+    display: block;
+    white-space: pre-wrap;
+  }
+
+  i {
+    color: var(--accent);
+    margin-right: 6px;
+  }
+  .banner-ocr .banner-subtext {
+    display: inline-block;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7em;
+    letter-spacing: 0;
+    color: var(--fg);
+  }
+  @media (min-width: 1200px) {
+  body {
+    font-size: 1.05em;
+  }
+}
+
+</style>
+</head>
+<body>
+<div id="terminal-wrapper">
+  <div id="terminal">
+    <div class="banner banner-ascii" id="banner-ascii">_______                   ________   _____             
+\   _  \ ___  ___  ____  /  _____/  /  |  |_______     
+/  /_\  \\  \/  / / ___\/   __  \  /   |  |\_  __ \    
+\  \_/   \>    < / /_/  >  |__\  \/    ^   /|  | \/    
+ \_____  /__/\_ \\___  / \_____  /\____   | |__|       
+       \/      \/_____/        \/      |__|            
+                      __    _____      .__  .__        
+______   ____________/  |__/ ____\____ |  | |__| ____  
+\____ \ /  _ \_  __ \   __\   __\/  _ \|  | |  |/  _ \ 
+|  |_> >  <_> )  | \/|  |  |  | (  <_> )  |_|  (  <_> )
+|   __/ \____/|__|   |__|  |__|  \____/|____/__|\____/ 
+|__|                                                   
+                                                                           
+    Welcome to my portfolio!
+    Type 'help' to begin.
+  </div>
+
+  <div class="banner banner-ocr" id="banner-ocr">
+    0xg64r<br>PORTFOLIO<br>
+    <span class="banner-subtext">Type <code>help</code> to begin.</span>
+  </div>
+
+
+  <div><span class="prompt">&gt;</span> <input id="commandInput" autofocus autocomplete="off" spellcheck="false" /></div>
+  </div>
+</div>
+
+<script>
+const terminal = document.getElementById('terminal');
+const input = document.getElementById('commandInput');
+
+const bannerAsciiHTML = document.getElementById('banner-ascii').innerHTML;
+const bannerOcrHTML = document.getElementById('banner-ocr').innerHTML;
+
+const commands = {
+  help: `Available commands:
+  <i class="fa-solid fa-user fa-fw"></i> about         - Who I am
+  <i class="fa-solid fa-lightbulb fa-fw"></i> skills       - My core skills
+  <i class="fa-solid fa-tools fa-fw"></i> technologies  - Tools and languages I use
+  <i class="fa-solid fa-trophy fa-fw"></i> achievements - My CTF achievements
+  <i class="fa-solid fa-briefcase fa-fw"></i> experience   - Professional & club experience
+  <i class="fa-solid fa-graduation-cap fa-fw"></i> education - Academic background
+  <i class="fa-solid fa-certificate fa-fw"></i> certification - Certifications
+  <i class="fa-solid fa-language fa-fw"></i> languages   - Languages I speak
+  <i class="fa-solid fa-envelope fa-fw"></i> contact      - How to reach me
+  <i class="fa-solid fa-broom fa-fw"></i> clear        - Clear the terminal`,
+
+  about: `I’m Abdelkader Jedidi (aka 0xg64r), a cybersecurity enthusiast specializing in penetration testing and web exploitation. I actively participate in CTF competitions and also create challenges for various events. I’m currently a student at the Higher Institute of Computer Science (ISI Ariana), where I continue to develop my skills and knowledge.`,
+
+  technologies: `Key technologies:
+  <i class="fa-solid fa-infinity fa-fw"></i> Python
+  <i class="fa-solid fa-gears fa-fw"></i> Docker
+  <i class="fa-brands fa-linux fa-fw"></i> Linux
+  <i class="fa-solid fa-terminal fa-fw"></i> Bash
+  <i class="fa-solid fa-microchip fa-fw"></i> C
+  <i class="fa-solid fa-microchip fa-fw"></i> C++
+  <i class="fa-brands fa-php fa-fw"></i> PHP
+  <i class="fa-brands fa-js fa-fw"></i> JavaScript
+  <i class="fa-solid fa-database fa-fw"></i> SQL`,
+
+  skills: `Core skills:
+  <i class="fa-solid fa-user-shield fa-fw"></i> Web Application Penetration Testing
+  <i class="fa-solid fa-bug fa-fw"></i> Web Exploitation (SQLi, XSS, SSTI, LFI)
+  <i class="fa-solid fa-network-wired fa-fw"></i> Networking Fundamentals
+  <i class="fa-solid fa-terminal fa-fw"></i> Linux & Bash Scripting
+  <i class="fa-solid fa-flag fa-fw"></i> CTF Problem Solving`,
+
+  achievements: `CTF Achievements:
+  <i class="fa-solid fa-trophy fa-fw"></i> 3rd place - Darknets CTF (Securinets, ENSIT)
+  <i class="fa-solid fa-trophy fa-fw"></i> 1st place - Hack the System (Securinets, SESAME)
+  <i class="fa-solid fa-trophy fa-fw"></i> 2nd place - KyubiSec CTF
+  <i class="fa-solid fa-trophy fa-fw"></i> 9th place - Quals Securinets, INSAT
+  <i class="fa-solid fa-trophy fa-fw"></i> 3rd place - Mini CTF (Securinets, ISI)
+  <i class="fa-solid fa-trophy fa-fw"></i> 4th place - Capture the Flag CTF, INSAT
+  <i class="fa-solid fa-trophy fa-fw"></i> 3rd place - Capture the Flag, ENIT
+  <i class="fa-solid fa-trophy fa-fw"></i> 10th place - Patriot CTF (International)`,
+
+  experience: `Professional & Club Experience:
+  <i class="fa-solid fa-chalkboard-teacher fa-fw"></i> Organisateur & Formateur - Summer Bootcamp Cybersecurity (Securinets, ISI Ariana)
+      - Led a "Web Exploitation" workshop
+      - Created & supervised multiple practical challenges (Web, General Skills)
+      - Assisted in logistics and supported speakers
+
+  <i class="fa-solid fa-users fa-fw"></i> Member - Securinets ISI Ariana
+      - HR role (2024–2025): managed members & internal organization
+      - Tech Team (2025): hosted workshops & created CTF challenges
+
+  <i class="fa-solid fa-users fa-fw"></i> Member - Freeways ISI Ariana
+      - Participated in club activities, enhanced problem-solving skills through collaborative projects
+
+  <i class="fa-solid fa-network-wired fa-fw"></i> Intern - Réseau & Sécurité, Délice Danone
+      - Collaborated with network managers to develop skills
+      - Applied cybersecurity knowledge to detect potential vulnerabilities`,
+
+  certification: `Certifications:
+  <i class="fa-solid fa-certificate fa-fw"></i> Certified Ethical Hacker (CEH)
+  <i class="fa-solid fa-certificate fa-fw"></i> Certified Red Team Analyst (CRTA)
+  <i class="fa-solid fa-certificate fa-fw"></i> CCEP, CPPS, CRTOM`,
+
+  languages: `Languages:
+  <i class="fa-solid fa-language fa-fw"></i> English - Advanced
+  <i class="fa-solid fa-language fa-fw"></i> French - Intermediate
+  <i class="fa-solid fa-language fa-fw"></i> Arabic - Native`,
+
+  education: `Education:
+  <i class="fa-solid fa-graduation-cap fa-fw"></i> Baccalauréat en Sciences Informatiques — Mention Très Bien (Sep 2023 - Juin 2024)
+  <i class="fa-solid fa-graduation-cap fa-fw"></i> Licence en Ingénierie des Réseaux et Systèmes Informatiques — Institut Supérieur d’Informatique, Ariana (Sep 2024 - Present)`,
+
+ contact: `You can reach me at:
+  <i class="fa-solid fa-envelope fa-fw"></i>
+  <a href="mailto:abdelkaderjedidi5@gmail.com">abdelkaderjedidi5@gmail.com</a>
+
+  <i class="fa-brands fa-linkedin fa-fw"></i>
+  <a href="https://www.linkedin.com/in/abdelkaderjedidi" target="_blank">
+    linkedin.com/in/abdelkaderjedidi
+  </a>
+
+  <i class="fa-brands fa-github fa-fw"></i>
+  <a href="https://github.com/0xg64r" target="_blank">
+    github.com/0xg64r
+  </a>
+
+  <i class="fa-solid fa-phone fa-fw"></i> +216 90 636 149`,
+
+
+  clear: 'CLEAR'
+};
+
+
+
+
+let history = [];
+let historyIndex = -1;
+let isTyping = false;
+
+function printOutput(cmd, output) {
+  const newLine = document.createElement('div');
+  newLine.innerHTML = `<span class="prompt">&gt;</span> ${cmd}`;
+  terminal.insertBefore(newLine, input.parentElement);
+
+  if (output === 'CLEAR') {
+    terminal.innerHTML = '';
+
+    const bannerAscii = document.createElement('div');
+    bannerAscii.className = 'banner banner-ascii';
+    bannerAscii.innerHTML = bannerAsciiHTML;
+
+    const bannerOcr = document.createElement('div');
+    bannerOcr.className = 'banner banner-ocr';
+    bannerOcr.innerHTML = bannerOcrHTML;
+
+    terminal.appendChild(bannerAscii);
+    terminal.appendChild(bannerOcr);
+    terminal.appendChild(input.parentElement);
+    return;
+  }
+
+  const outLine = document.createElement('div');
+  outLine.classList.add('typed-line');
+  terminal.insertBefore(outLine, input.parentElement);
+
+  if (output) typeLine(outLine, output);
+  else typeLine(outLine, `Command not found: ${cmd}`);
+
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+function typeLine(element, text, speed = 10) {
+  isTyping = true;
+  if (/<\/?[a-z][\s\S]*>/i.test(text)) {
+    element.innerHTML = text;
+    isTyping = false;
+    terminal.scrollTop = terminal.scrollHeight;
+    return;
+  }
+  let i = 0;
+  (function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i++);
+      terminal.scrollTop = terminal.scrollHeight;
+      setTimeout(type, speed);
+    } else {
+      isTyping = false;
+    }
+  })();
+}
+
+input.addEventListener('keydown', e => {
+  if (isTyping) return;
+
+  if (e.key === 'Enter') {
+    const cmd = input.value.trim();
+    if (cmd) {
+      history.push(cmd);
+      historyIndex = history.length;
+      printOutput(cmd, commands[cmd]);
+    }
+    input.value = '';
+  }
+
+  if (e.key === 'ArrowUp') {
+    if (historyIndex > 0) input.value = history[--historyIndex];
+    e.preventDefault();
+  }
+
+  if (e.key === 'ArrowDown') {
+    if (historyIndex < history.length - 1) input.value = history[++historyIndex];
+    else input.value = '';
+    e.preventDefault();
+  }
+
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const current = input.value.trim();
+    if (!current) return;
+    const matches = Object.keys(commands).filter(c => c.startsWith(current));
+    if (matches.length === 1) input.value = matches[0];
+    else if (matches.length > 1)
+      printOutput(current, `Possible commands:\n  ${matches.join('\n  ')}`);
+  }
+});
+</script>
+</body>
+</html>
