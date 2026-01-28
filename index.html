@@ -51,7 +51,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 100dvh;
+  height: 100vh;
   width: 100%;
   padding: 0;
 }
@@ -63,7 +63,8 @@ html, body {
   width: 100%;
   max-width: 1200px;
   padding: 20px;
-  height: calc(100vh - 40px);
+  height: auto;
+  min-height: 100vh;
   overflow-y: scroll;
   scrollbar-width: none; 
   -ms-overflow-style: none; 
@@ -83,7 +84,7 @@ input {
   color: var(--fg);
   font-family: inherit;
   font-size: 16px;
-  width: 80%;
+  width: 100%;
   max-width: 100%;
   outline: none;
 }
@@ -172,7 +173,17 @@ i {
   body {
     font-size: 0.85em;
   }
-
+@media (max-width: 700px) {
+  .banner-ascii {
+    display: none;
+  }
+  .banner-ocr {
+    display: block;
+    font-size: 1.2em;
+    line-height: 1.3em;
+    text-align: center;
+  }
+}
   #terminal {
     height: 100dvh;
     padding: 12px;
@@ -218,6 +229,17 @@ i {
   }
 }
 
+.prompt-line {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  align-items: center;
+  gap: 5px;
+}
+
+.prompt-line input {
+  flex: 1;       /* Take all remaining space */
+  min-width: 0;  /* Prevent overflow on small screens */
+}
 /* Large devices */
 @media (min-width: 1200px) {
   body {
@@ -254,7 +276,11 @@ ______   ____________/  |__/ ____\____ |  | |__| ____
   </div>
 
 
-  <div><span class="prompt">&gt;</span> <input id="commandInput" autofocus autocomplete="off" spellcheck="false" /></div>
+  <div class="prompt-line">
+  <span class="prompt">&gt;</span>
+  <input id="commandInput" autofocus autocomplete="off" spellcheck="false" />
+</div>
+
   </div>
 </div>
 
