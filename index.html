@@ -1,475 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>0xg64r Portfolio</title>
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-<link href="https://fonts.cdnfonts.com/css/ocr-a-std" rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-<style>
-
-/* ===============================
-   Root variables
-=============================== */
-:root {
-  --fg: #00ff88;
-  --accent: #00ffaa;
-  --bg: #0d0d0d;
-  --font: 'Roboto Mono', monospace;
-}
-
-/* ===============================
-   Global Styles
-=============================== */
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100dvh;
-  overflow-x: hidden;
-  background-color: var(--bg);
-  color: var(--fg);
-  font-family: var(--font);
-  letter-spacing: 0.05em;
-  font-size: 1em;
-}
-
-/* ===============================
-   Terminal Wrapper
-=============================== */
-#terminal-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  width: 100%;
-  padding: 0;
-}
-
-/* ===============================
-   Terminal Styles
-=============================== */
-#terminal {
-  width: 100%;
-  max-width: 1200px;
-  padding: 20px;
-  height: auto;
-  min-height: 100vh;
-  overflow-y: scroll;
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
-}
-
-#terminal::-webkit-scrollbar {
-  display: none; 
-}
-
-
-/* ===============================
-   Input & Prompt
-=============================== */
-input {
-  background: none;
-  border: none;
-  color: var(--fg);
-  font-family: inherit;
-  font-size: 16px;
-  width: 100%;
-  max-width: 100%;
-  outline: none;
-}
-
-.prompt {
-  color: var(--accent);
-}
-
-/* ===============================
-   Links
-=============================== */
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-/* ===============================
-   Selection
-=============================== */
-::selection {
-  background: var(--fg);
-  color: #000;
-}
-
-/* ===============================
-   Banner Styles
-=============================== */
-.banner {
-  color: var(--accent);
-  font-weight: bold;
-  margin-bottom: 1em;
-}
-
-.banner-ascii {
-  white-space: pre;
-  font-family: var(--font);
-}
-
-.banner-ocr {
-  display: none;
-  font-family: 'OCR A Std', monospace;
-  font-size: 1.5em;
-  letter-spacing: 0.05em;
-  line-height: 1.3em;
-  white-space: normal;
-}
-
-.banner-ocr code {
-  font-size: 0.9em;
-}
-
-.banner-ocr .banner-subtext {
-  display: inline-block;
-  font-family: var(--font);
-  font-size: 0.7em;
-  letter-spacing: 0;
-  color: var(--fg);
-}
-
-/* ===============================
-   Typed Line
-=============================== */
-.typed-line {
-  display: block;
-  white-space: pre-wrap;
-  line-height: 1.4em;
-}
-
-/* ===============================
-   Italics Icon
-=============================== */
-i {
-  color: var(--accent);
-  margin-right: 6px;
-}
-
-/* ===============================
-   Media Queries for Responsiveness
-=============================== */
-
-/* Small devices */
-@media (max-width: 600px) {
-  body {
-    font-size: 0.85em;
-  }
-@media (max-width: 700px) {
-  .banner-ascii {
-    display: none;
-  }
-  .banner-ocr {
-    display: block;
-    font-size: 1.2em;
-    line-height: 1.3em;
-    text-align: center;
-  }
-}
-  #terminal {
-    height: 100dvh;
-    padding: 12px;
-  }
-
-  .banner-ascii {
-    display: none;
-  }
-
-  .banner-ocr {
-    display: block;
-    font-size: 1.2em;
-  }
-
-  input {
-    font-size: 16px;
-    width: 100%;
-  }
-}
-
-/* Medium devices */
-@media (max-width: 700px) {
-  body {
-    font-size: 0.9em;
-  }
-
-  #terminal {
-    padding: 14px;
-  }
-
-  .banner-ocr {
-    font-size: 1.4em;
-    text-align: left;
-    margin-bottom: 0.5em;
-  }
-
-  input {
-    font-size: 0.9em;
-  }
-
-  .typed-line {
-    line-height: 1.5em;
-  }
-}
-
-.prompt-line {
-  display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping */
-  align-items: center;
-  gap: 5px;
-}
-
-.prompt-line input {
-  flex: 1;       /* Take all remaining space */
-  min-width: 0;  /* Prevent overflow on small screens */
-}
-/* Large devices */
-@media (min-width: 1200px) {
-  body {
-    font-size: 1.05em;
-  }
-}
-
-
-</style>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0xg64r Terminal Portfolio</title>
+    <meta name="description" content="Terminal portfolio for 0xg64r">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kali-purple': '#557cf2',
+                        'kali-dark': '#0f0f23',
+                        'kali-gray': '#1a1a2e',
+                        'terminal-green': '#00ff00',
+                        'terminal-yellow': '#ffff00',
+                        'terminal-red': '#ff0000',
+                        'terminal-blue': '#0088ff'
+                    },
+                    fontFamily: {
+                        'terminal': ['Ubuntu Mono', 'Share Tech Mono', 'monospace']
+                    },
+                    animation: {
+                        'blink': 'blink 1s infinite'
+                    },
+                    keyframes: {
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .terminal-scrollbar::-webkit-scrollbar { width: 8px; }
+        .terminal-scrollbar::-webkit-scrollbar-track { background: #1a1a2e; }
+        .terminal-scrollbar::-webkit-scrollbar-thumb { background: #557cf2; border-radius: 4px; }
+        .terminal-scrollbar::-webkit-scrollbar-thumb:hover { background: #3a5bd9; }
+        .command-output { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .command-output.show { max-height: none; }
+        .ascii-art { line-height: 1.2; letter-spacing: 0; }
+        input { cursor: text; }
+    </style>
 </head>
-<body>
-<div id="terminal-wrapper">
-  <div id="terminal">
-    <div class="banner banner-ascii" id="banner-ascii">_______                   ________   _____             
-\   _  \ ___  ___  ____  /  _____/  /  |  |_______     
-/  /_\  \\  \/  / / ___\/   __  \  /   |  |\_  __ \    
-\  \_/   \>    < / /_/  >  |__\  \/    ^   /|  | \/    
- \_____  /__/\_ \\___  / \_____  /\____   | |__|       
-       \/      \/_____/        \/      |__|            
-                      __    _____      .__  .__        
-______   ____________/  |__/ ____\____ |  | |__| ____  
-\____ \ /  _ \_  __ \   __\   __\/  _ \|  | |  |/  _ \ 
-|  |_> >  <_> )  | \/|  |  |  | (  <_> )  |_|  (  <_> )
-|   __/ \____/|__|   |__|  |__|  \____/|____/__|\____/ 
-|__|                                                   
-                                                                           
-    Welcome to my portfolio!
-    Type 'help' to begin.
-  </div>
+<body class="bg-kali-dark min-h-screen font-terminal text-gray-300 overflow-hidden">
+    <div class="h-screen flex flex-col">
+        <div class="bg-kali-gray border-b border-kali-purple/30 py-2 px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-terminal-red"></div>
+                        <div class="w-3 h-3 rounded-full bg-terminal-yellow"></div>
+                        <div class="w-3 h-3 rounded-full bg-terminal-green"></div>
+                    </div>
+                    <span class="text-sm text-kali-purple font-bold">root@kali:~</span>
+                </div>
+                <div class="text-sm">
+                    <span class="text-terminal-green">@0xg64r</span>
+                    <span class="text-terminal-blue">terminal-portfolio</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 bg-black/90 overflow-hidden">
+            <div class="h-full p-6 terminal-scrollbar overflow-y-auto">
+                <div class="mb-6">
+                    <div class="ascii-art text-terminal-green text-xs mb-4">
+<pre class="whitespace-pre">
+_______                   ________   _____         
+╲   _  ╲ ___  ___  ____  ╱  _____╱  ╱  │  │_______ 
+╱  ╱_╲  ╲╲  ╲╱  ╱ ╱ ___╲╱   __  ╲  ╱   │  │╲_  __ ╲
+╲  ╲_╱   ╲>    < ╱ ╱_╱  >  │__╲  ╲╱    ^   ╱│  │ ╲╱
+ ╲_____  ╱__╱╲_ ╲╲___  ╱ ╲_____  ╱╲____   │ │__│   
+       ╲╱      ╲╱_____╱        ╲╱      │__│        
+</pre>
+                    </div>
+                    <div class="text-terminal-green mb-2">
+                        <span class="text-terminal-blue">┌──(</span>
+                        <span class="text-terminal-yellow">root㉿kali</span>
+                        <span class="text-terminal-blue">)-[</span>
+                        <span class="text-white">~</span>
+                        <span class="text-terminal-blue">]</span>
+                    </div>
+                    <div class="text-terminal-green">
+                        <span class="text-terminal-blue">└─</span>
+                        <span class="text-terminal-red">#</span>
+                        <span class="ml-2 text-white">Welcome to 0xg64r's portfolio</span>
+                    </div>
+                    <div class="mt-4 text-gray-400 text-sm">
+                        Type <span class="text-terminal-green">'help'</span> to see available commands
+                    </div>
+                </div>
+                <div id="commandHistory" class="space-y-4"></div>
+                <div class="mt-6">
+                    <div class="text-terminal-green mb-2">
+                        <span class="text-terminal-blue">┌──(</span>
+                        <span class="text-terminal-yellow">root㉿kali</span>
+                        <span class="text-terminal-blue">)-[</span>
+                        <span class="text-white">~</span>
+                        <span class="text-terminal-blue">]</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="text-terminal-green">
+                            <span class="text-terminal-blue">└─</span>
+                            <span class="text-terminal-red">#</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="commandInput" 
+                            class="flex-1 bg-transparent border-none outline-none text-white ml-2 font-terminal caret-terminal-green"
+                            placeholder=""
+                            autocomplete="off"
+                            spellcheck="false"
+                            autofocus
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-kali-gray border-t border-kali-purple/30 px-4 py-2 text-xs">
+            <div class="flex justify-between items-center">
+                <div class="text-gray-400">
+                    <span id="currentTime" class="text-terminal-yellow"></span>
+                    <span class="mx-2">|</span>
+                    <span id="uptime">Uptime: 00:00:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="banner banner-ocr" id="banner-ocr">
-    0xg64r<br>PORTFOLIO<br>
-    <span class="banner-subtext">Type <code>help</code> to begin.</span>
-  </div>
+    <script>
+        const portfolioData = {
+            user: "0xg64r",
+            fullName: "Abdelkader Jedidi",
+            title: "Cybersecurity Enthusiast",
+            about: {
+                description: "I’m Abdelkader Jedidi (aka 0xg64r), a cybersecurity enthusiast specializing in penetration testing and web exploitation. I actively participate in CTF competitions and also create challenges for various events. I’m currently a student at ISI Ariana.",
+                specialties: ["Penetration Testing", "Web Application Security"]
+            },
+            skills: {
+                categories: [
+                    { name: "Penetration Testing", items: ["Metasploit","Burp Suite","Nmap","Wireshark","John the Ripper","Hashcat"] },
+                    { name: "Programming", items: ["Python","Bash","JavaScript","C/C++","SQL","PowerShell"] },
+                    { name: "Certifications", items: ["CRTA","CEH","CCEP","CPPS","CRTOM"] }
+                ]
+            },
+            languages: [
+                { name: "<i class='fa-solid fa-language fa-fw'></i> English", level: "Advanced" },
+                { name: "<i class='fa-solid fa-language fa-fw'></i> French", level: "Intermediate" },
+                { name: "<i class='fa-solid fa-language fa-fw'></i> Arabic", level: "Native" }
+            ],
+            education: [
+                {
+                    title: "<i class='fa-solid fa-graduation-cap fa-fw'></i> Baccalauréat en Sciences Informatiques",
+                    details: "Mention Très Bien",
+                    period: "Sep 2023 - Juin 2024"
+                },
+                {
+                    title: "<i class='fa-solid fa-graduation-cap fa-fw'></i> Licence en Ingénierie des Réseaux et Systèmes Informatiques",
+                    details: "Institut Supérieur d’Informatique, Ariana",
+                    period: "Sep 2024 - Present"
+                }
+            ],
+            experience: [
+                {
+                    name: "<i class='fa-solid fa-chalkboard-teacher fa-fw'></i> Organisateur & Formateur",
+                    description: "Summer Bootcamp Cybersecurity (Securinets, ISI Ariana)",
+                    details: [
+                        "Led a \"Web Exploitation\" workshop",
+                        "Created & supervised multiple practical challenges (Web, General Skills)",
+                        "Assisted in logistics and supported speakers"
+                    ]
+                },
+                {
+                    name: "<i class='fa-solid fa-users fa-fw'></i> Member",
+                    description: "Securinets ISI Ariana",
+                    details: [
+                        "HR role (2024–2025): managed members & internal organization",
+                        "Tech Team (2025): hosted workshops & created CTF challenges"
+                    ]
+                },
+                {
+                    name: "<i class='fa-solid fa-users fa-fw'></i> Member",
+                    description: "Freeways ISI Ariana",
+                    details: [
+                        "Participated in club activities",
+                        "Enhanced problem-solving skills through collaborative projects"
+                    ]
+                },
+                {
+                    name: "<i class='fa-solid fa-network-wired fa-fw'></i> Intern – Réseau & Sécurité",
+                    description: "Délice Danone",
+                    details: [
+                        "Collaborated with network managers to develop skills",
+                        "Applied cybersecurity knowledge to detect potential vulnerabilities"
+                    ]
+                }
+            ]
+        };
+
+        const commandInput = document.getElementById("commandInput");
+        const commandHistory = document.getElementById("commandHistory");
+        const currentTime = document.getElementById("currentTime");
+        const uptimeElement = document.getElementById("uptime");
+
+        let startTime = new Date();
+        let commandHistoryArray = [];
+
+        function updateTime() {
+            const now = new Date();
+            currentTime.textContent = now.toLocaleTimeString();
+            const uptime = new Date(now - startTime);
+            const hours = uptime.getUTCHours().toString().padStart(2,"0");
+            const minutes = uptime.getUTCMinutes().toString().padStart(2,"0");
+            const seconds = uptime.getUTCSeconds().toString().padStart(2,"0");
+            uptimeElement.textContent = `Uptime: ${hours}:${minutes}:${seconds}`;
+        }
+
+        function createCommandOutput(command, output) {
+            const container = document.createElement("div");
+            container.className = "command-output";
+            container.innerHTML = `
+                <div class="text-terminal-green mb-2">
+                    <span class="text-terminal-blue">┌──(</span>
+                    <span class="text-terminal-yellow">root㉿kali</span>
+                    <span class="text-terminal-blue">)-[</span>
+                    <span class="text-white">~</span>
+                    <span class="text-terminal-blue">]</span>
+                </div>
+                <div class="text-terminal-green">
+                    <span class="text-terminal-blue">└─</span>
+                    <span class="text-terminal-red">#</span>
+                    <span class="ml-2 text-white">${command}</span>
+                </div>
+                <div class="mt-2 ml-8 text-gray-300">${output}</div>
+            `;
+            setTimeout(() => { container.classList.add("show"); }, 10);
+            return container;
+        }
+
+        function clearTerminal() {
+            commandHistory.innerHTML = "";
+            commandHistoryArray = [];
+        }
+
+        function executeCommand(cmd) {
+            if(!cmd.trim()) return;
+            commandInput.value = "";
+            let output = "";
+            const command = cmd.toLowerCase();
+
+            switch(command) {
+                case "languages":
+                    output = portfolioData.languages.map(lang => `
+                        <div class="border-l-4 border-terminal-green pl-4 py-2">
+                            <span class="text-terminal-yellow font-bold">${lang.name}</span>
+                            <span class="text-gray-400 ml-2">— ${lang.level}</span>
+                        </div>
+                    `).join("");
+                    break;
+                case "education":
+                    output = portfolioData.education.map(edu => `
+                        <div class="border-l-4 border-terminal-blue pl-4 py-2 mb-3">
+                            <div class="text-terminal-green font-bold">${edu.title}</div>
+                            <div class="text-terminal-yellow">${edu.details}</div>
+                            <div class="text-gray-400 text-sm">${edu.period}</div>
+                        </div>
+                    `).join("");
+                    break;
+                case "help":
+                    output = `
+                        <div class="space-y-1">
+                            <div><span class="text-terminal-green">about</span> - About me</div>
+                            <div><span class="text-terminal-green">skills</span> - Technical skills</div>
+                            <div><span class="text-terminal-green">languages</span> - Spoken languages</div>
+                            <div><span class="text-terminal-green">education</span> - Academic background</div>
+                            <div><span class="text-terminal-green">experience</span> - Work experience</div>
+                            <div><span class="text-terminal-green">contact</span> - Contact info</div>
+                            <div><span class="text-terminal-green">whoami</span> - Current user</div>
+                            <div><span class="text-terminal-green">date</span> - Current date/time</div>
+                            <div><span class="text-terminal-green">pwd</span> - Print working directory</div>
+                            <div><span class="text-terminal-green">clear</span> - Clear terminal</div>
+                        </div>
+                    `;
+                    break;
+
+                case "about":
+                    output = `
+                        <div class="mb-4 text-terminal-yellow font-bold">${portfolioData.fullName} [${portfolioData.title}]</div>
+                        <div class="mb-2">${portfolioData.about.description}</div>
+                        <div class="flex flex-wrap gap-2">${portfolioData.about.specialties.map(s => `<span class="bg-kali-purple/20 px-2 rounded">${s}</span>`).join("")}</div>
+                    `;
+                    break;
+
+                case "skills":
+                    output = portfolioData.skills.categories.map(cat => `
+                        <div class="mb-2">
+                            <div class="text-terminal-yellow">${cat.name}:</div>
+                            <div class="flex flex-wrap gap-2 ml-4">${cat.items.map(i => `<span class="bg-kali-gray px-2 rounded">${i}</span>`).join("")}</div>
+                        </div>
+                    `).join("");
+                    break;
+
+                case "experience":
+                    output = portfolioData.experience.map(exp => `
+                        <div class="border-l-4 border-terminal-blue pl-4 py-2 mb-3">
+                            <div class="text-terminal-green font-bold">${exp.name}</div>
+                            <div class="text-terminal-yellow">${exp.description}</div>
+                            <ul class="mt-2 ml-4 list-disc text-gray-400 text-sm">
+                                ${exp.details.map(d => `<li>${d}</li>`).join("")}
+                            </ul>
+                        </div>
+                    `).join("");
+                    break;
 
 
-  <div class="prompt-line">
-  <span class="prompt">&gt;</span>
-  <input id="commandInput" autofocus autocomplete="off" spellcheck="false" />
-</div>
-
-  </div>
-</div>
-
-<script>
-const terminal = document.getElementById('terminal');
-const input = document.getElementById('commandInput');
-
-const bannerAsciiHTML = document.getElementById('banner-ascii').innerHTML;
-const bannerOcrHTML = document.getElementById('banner-ocr').innerHTML;
-
-const commands = {
-  help: `Available commands:
-  <i class="fa-solid fa-user fa-fw"></i> about         - Who I am
-  <i class="fa-solid fa-lightbulb fa-fw"></i> skills       - My core skills
-  <i class="fa-solid fa-tools fa-fw"></i> technologies  - Tools and languages I use
-  <i class="fa-solid fa-trophy fa-fw"></i> achievements - My CTF achievements
-  <i class="fa-solid fa-briefcase fa-fw"></i> experience   - Professional & club experience
-  <i class="fa-solid fa-graduation-cap fa-fw"></i> education - Academic background
-  <i class="fa-solid fa-certificate fa-fw"></i> certification - Certifications
-  <i class="fa-solid fa-language fa-fw"></i> languages   - Languages I speak
-  <i class="fa-solid fa-envelope fa-fw"></i> contact      - How to reach me
-  <i class="fa-solid fa-broom fa-fw"></i> clear        - Clear the terminal`,
-
-  about: `I’m Abdelkader Jedidi (aka 0xg64r), a cybersecurity enthusiast specializing in penetration testing and web exploitation. I actively participate in CTF competitions and also create challenges for various events. I’m currently a student at the Higher Institute of Computer Science (ISI Ariana), where I continue to develop my skills and knowledge.`,
-
-  technologies: `Key technologies:
-  <i class="fa-solid fa-infinity fa-fw"></i> Python
-  <i class="fa-solid fa-gears fa-fw"></i> Docker
-  <i class="fa-brands fa-linux fa-fw"></i> Linux
-  <i class="fa-solid fa-terminal fa-fw"></i> Bash
-  <i class="fa-solid fa-microchip fa-fw"></i> C
-  <i class="fa-solid fa-microchip fa-fw"></i> C++
-  <i class="fa-brands fa-php fa-fw"></i> PHP
-  <i class="fa-brands fa-js fa-fw"></i> JavaScript
-  <i class="fa-solid fa-database fa-fw"></i> SQL`,
-
-  skills: `Core skills:
-  <i class="fa-solid fa-user-shield fa-fw"></i> Web Application Penetration Testing
-  <i class="fa-solid fa-bug fa-fw"></i> Web Exploitation (SQLi, XSS, SSTI, LFI)
-  <i class="fa-solid fa-network-wired fa-fw"></i> Networking Fundamentals
-  <i class="fa-solid fa-terminal fa-fw"></i> Linux & Bash Scripting
-  <i class="fa-solid fa-flag fa-fw"></i> CTF Problem Solving`,
-
-  achievements: `CTF Achievements:
-  <i class="fa-solid fa-trophy fa-fw"></i> 3rd place - Darknets CTF (Securinets, ENSIT)
-  <i class="fa-solid fa-trophy fa-fw"></i> 1st place - Hack the System (Securinets, SESAME)
-  <i class="fa-solid fa-trophy fa-fw"></i> 2nd place - KyubiSec CTF
-  <i class="fa-solid fa-trophy fa-fw"></i> 9th place - Quals Securinets, INSAT
-  <i class="fa-solid fa-trophy fa-fw"></i> 3rd place - Mini CTF (Securinets, ISI)
-  <i class="fa-solid fa-trophy fa-fw"></i> 4th place - Capture the Flag CTF, INSAT
-  <i class="fa-solid fa-trophy fa-fw"></i> 3rd place - Capture the Flag, ENIT
-  <i class="fa-solid fa-trophy fa-fw"></i> 10th place - Patriot CTF (International)`,
-
-  experience: `Professional & Club Experience:
-  <i class="fa-solid fa-chalkboard-teacher fa-fw"></i> Organisateur & Formateur - Summer Bootcamp Cybersecurity (Securinets, ISI Ariana)
-      - Led a "Web Exploitation" workshop
-      - Created & supervised multiple practical challenges (Web, General Skills)
-      - Assisted in logistics and supported speakers
-
-  <i class="fa-solid fa-users fa-fw"></i> Member - Securinets ISI Ariana
-      - HR role (2024–2025): managed members & internal organization
-      - Tech Team (2025): hosted workshops & created CTF challenges
-
-  <i class="fa-solid fa-users fa-fw"></i> Member - Freeways ISI Ariana
-      - Participated in club activities, enhanced problem-solving skills through collaborative projects
-
-  <i class="fa-solid fa-network-wired fa-fw"></i> Intern - Réseau & Sécurité, Délice Danone
-      - Collaborated with network managers to develop skills
-      - Applied cybersecurity knowledge to detect potential vulnerabilities`,
-
-  certification: `Certifications:
-  <i class="fa-solid fa-certificate fa-fw"></i> Certified Ethical Hacker (CEH)
-  <i class="fa-solid fa-certificate fa-fw"></i> Certified Red Team Analyst (CRTA)
-  <i class="fa-solid fa-certificate fa-fw"></i> CCEP, CPPS, CRTOM`,
-
-  languages: `Languages:
-  <i class="fa-solid fa-language fa-fw"></i> English - Advanced
-  <i class="fa-solid fa-language fa-fw"></i> French - Intermediate
-  <i class="fa-solid fa-language fa-fw"></i> Arabic - Native`,
-
-  education: `Education:
-  <i class="fa-solid fa-graduation-cap fa-fw"></i> Baccalauréat en Sciences Informatiques — Mention Très Bien (Sep 2023 - Juin 2024)
-  <i class="fa-solid fa-graduation-cap fa-fw"></i> Licence en Ingénierie des Réseaux et Systèmes Informatiques — Institut Supérieur d’Informatique, Ariana (Sep 2024 - Present)`,
-
-contact: `
-<i class="fa-solid fa-envelope fa-fw"></i> <a href="mailto:abdelkaderjedidi5@gmail.com" style="color: var(--accent);">abdelkaderjedidi5@gmail.com</a><br>
-<i class="fa-brands fa-linkedin fa-fw"></i> <a href="https://www.linkedin.com/in/abdelkaderjedidi" target="_blank" style="color: var(--accent);">linkedin.com/in/abdelkaderjedidi</a><br>
-<i class="fa-brands fa-github fa-fw"></i> <a href="https://github.com/0xg64r" target="_blank" style="color: var(--accent);">github.com/0xg64r</a><br>
-<i class="fa-solid fa-phone fa-fw"></i> +216 90 636 149`
-,
+                case "contact":
+                    output = `
+                        <div>Email: <a href="mailto:abdelkaderjedidi5@gmail.com" style="color: var(--accent);">abdelkaderjedidi5@gmail.com</a> <span class="text-terminal-green">${portfolioData.contact?.email||""}</span></div>
+                        <div>Github: <a href="https://github.com/0xg64r" target="_blank" style="color: var(--accent);">github.com/0xg64r</a>  <span class="text-terminal-blue">${portfolioData.contact?.github||""}</span></div>
+                        <div>LinkedIn: <a href="https://www.linkedin.com/in/abdelkaderjedidi" target="_blank" style="color: var(--accent);">linkedin.com/in/abdelkaderjedidi</a> <span class="text-terminal-blue">${portfolioData.contact?.linkedin||""}</span></div>
+                        <div>Twitter: <a href="https://x.com/JedidiGadour" target="_blank" style="color: var(--accent);">x.com/JedidiGadour</a> <span class="text-terminal-blue">${portfolioData.contact?.twitter||""}</span></div>
+                    `;
+                    break;
 
 
+                case "whoami":
+                    output = `<div class="text-terminal-green font-bold">${portfolioData.user}</div>`;
+                    break;
 
-  clear: 'CLEAR'
-};
+                case "date":
+                    const now = new Date();
+                    output = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+                    break;
 
+                case "pwd":
+                    output = `/home/${portfolioData.user}/portfolio`;
+                    break;
 
+                case "clear":
+                    clearTerminal();
+                    return;
 
+                default:
+                    output = `<div class="text-terminal-red">Command not found: ${cmd}</div>`;
+            }
 
-let history = [];
-let historyIndex = -1;
-let isTyping = false;
+            commandHistoryArray.push({command: cmd, output});
+            const outputElement = createCommandOutput(cmd, output);
+            commandHistory.appendChild(outputElement);
+            commandHistory.scrollTop = commandHistory.scrollHeight;
+        }
 
-function printOutput(cmd, output) {
-  const newLine = document.createElement('div');
-  newLine.innerHTML = `<span class="prompt">&gt;</span> ${cmd}`;
-  terminal.insertBefore(newLine, input.parentElement);
+        commandInput.addEventListener("keypress", e => {
+            if(e.key === "Enter") executeCommand(commandInput.value.trim());
+        });
 
-  if (output === 'CLEAR') {
-    terminal.innerHTML = '';
-
-    const bannerAscii = document.createElement('div');
-    bannerAscii.className = 'banner banner-ascii';
-    bannerAscii.innerHTML = bannerAsciiHTML;
-
-    const bannerOcr = document.createElement('div');
-    bannerOcr.className = 'banner banner-ocr';
-    bannerOcr.innerHTML = bannerOcrHTML;
-
-    terminal.appendChild(bannerAscii);
-    terminal.appendChild(bannerOcr);
-    terminal.appendChild(input.parentElement);
-    return;
-  }
-
-  const outLine = document.createElement('div');
-  outLine.classList.add('typed-line');
-  terminal.insertBefore(outLine, input.parentElement);
-
-  if (output) typeLine(outLine, output);
-  else typeLine(outLine, `Command not found: ${cmd}`);
-
-  terminal.scrollTop = terminal.scrollHeight;
-}
-
-function typeLine(element, text, speed = 10) {
-  isTyping = true;
-  if (/<\/?[a-z][\s\S]*>/i.test(text)) {
-    element.innerHTML = text;
-    isTyping = false;
-    terminal.scrollTop = terminal.scrollHeight;
-    return;
-  }
-  let i = 0;
-  (function type() {
-    if (i < text.length) {
-      element.textContent += text.charAt(i++);
-      terminal.scrollTop = terminal.scrollHeight;
-      setTimeout(type, speed);
-    } else {
-      isTyping = false;
-    }
-  })();
-}
-
-input.addEventListener('keydown', e => {
-  if (isTyping) return;
-
-  if (e.key === 'Enter') {
-    const cmd = input.value.trim();
-    if (cmd) {
-      history.push(cmd);
-      historyIndex = history.length;
-      printOutput(cmd, commands[cmd]);
-    }
-    input.value = '';
-  }
-
-  if (e.key === 'ArrowUp') {
-    if (historyIndex > 0) input.value = history[--historyIndex];
-    e.preventDefault();
-  }
-
-  if (e.key === 'ArrowDown') {
-    if (historyIndex < history.length - 1) input.value = history[++historyIndex];
-    else input.value = '';
-    e.preventDefault();
-  }
-
-  if (e.key === 'Tab') {
-    e.preventDefault();
-    const current = input.value.trim();
-    if (!current) return;
-    const matches = Object.keys(commands).filter(c => c.startsWith(current));
-    if (matches.length === 1) input.value = matches[0];
-    else if (matches.length > 1)
-      printOutput(current, `Possible commands:\n  ${matches.join('\n  ')}`);
-  }
-});
-</script>
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
 </body>
 </html>
